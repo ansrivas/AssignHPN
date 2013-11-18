@@ -1,7 +1,0 @@
-C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngine\bin\Debug\TinyBlogEngine.exe
-C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngine\bin\Debug\TinyBlogEngine.pdb
-C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngine\bin\Debug\Microsoft.Samples.XmlRpc.dll
-C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngine\bin\Debug\Microsoft.Samples.XmlRpc.pdb
-C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngine\obj\Debug\CalendarEngine.csprojResolveAssemblyReference.cache
-C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngine\obj\Debug\TinyBlogEngine.exe
-C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngine\obj\Debug\TinyBlogEngine.pdb

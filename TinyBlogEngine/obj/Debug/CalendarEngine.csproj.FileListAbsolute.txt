@@ -1,0 +1,14 @@
+C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngine\bin\Debug\TinyBlogEngine.exe
+C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngine\bin\Debug\TinyBlogEngine.pdb
+C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngine\bin\Debug\Microsoft.Samples.XmlRpc.dll
+C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngine\bin\Debug\Microsoft.Samples.XmlRpc.pdb
+C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngine\obj\Debug\CalendarEngine.csprojResolveAssemblyReference.cache
+C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngine\obj\Debug\TinyBlogEngine.exe
+C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngine\obj\Debug\TinyBlogEngine.pdb
+D:\Codebase\DCITproject\AssignHPN\TinyBlogEngine\bin\Debug\TinyBlogEngine.exe
+D:\Codebase\DCITproject\AssignHPN\TinyBlogEngine\bin\Debug\TinyBlogEngine.pdb
+D:\Codebase\DCITproject\AssignHPN\TinyBlogEngine\bin\Debug\Microsoft.Samples.XmlRpc.dll
+D:\Codebase\DCITproject\AssignHPN\TinyBlogEngine\bin\Debug\Microsoft.Samples.XmlRpc.pdb
+D:\Codebase\DCITproject\AssignHPN\TinyBlogEngine\obj\Debug\CalendarEngine.csprojResolveAssemblyReference.cache
+D:\Codebase\DCITproject\AssignHPN\TinyBlogEngine\obj\Debug\TinyBlogEngine.exe
+D:\Codebase\DCITproject\AssignHPN\TinyBlogEngine\obj\Debug\TinyBlogEngine.pdb
