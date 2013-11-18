@@ -30,12 +30,22 @@ namespace Calendar
 
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class CalendarAPI : ICalendarAPI{
-     
+
+        private DatabaseCon con;
+        private CUtils utility;
+
         public CalendarAPI()
 		{
-
+            initConnections();
        	}
 
+        private void initConnections() {
+
+            con = new DatabaseCon();
+            utility = new CUtils();
+
+            return;
+        }
         private void updateOtherServers(){
         
             Uri blogAddress = new UriBuilder(Uri.UriSchemeHttp, Environment.MachineName, 3030, "/calendardDemo/cal").Uri;
@@ -53,11 +63,9 @@ namespace Calendar
         }
         int ICalendarAPI.calendarTest(int a, int b) {
 
-            DatabaseCon con = new DatabaseCon();
             con.initCon();
-
-            CUtils utility = new CUtils();
             utility.setUpTimer();
+
            // updateOtherServers();
             return (a + b);
         }

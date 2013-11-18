@@ -9,15 +9,15 @@ namespace Utils
     class CUtils
     {
         private System.Timers.Timer aTimer ;
-
-
+        private int TIME_SERVER_UPDATE = 6000;
+      
         public void setUpTimer() { 
             
             aTimer = new System.Timers.Timer(10000);
             // Hook up the Elapsed event for the timer.
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            // Set the Interval to 6 seconds (6000 milliseconds).
-            aTimer.Interval = 6000;
+            // Set the Interval to (TIME_SERVER_UPDATE x 1000 milliseconds).
+            aTimer.Interval = TIME_SERVER_UPDATE;
             //for enabling for disabling the timer.
             aTimer.Enabled = true;
         
@@ -29,6 +29,7 @@ namespace Utils
         {
             //disable the timer
             aTimer.Enabled = false;
+            //call the required function here.
             Console.WriteLine("The Elapsed event was raised at {0}", e.SignalTime);
         }
 
