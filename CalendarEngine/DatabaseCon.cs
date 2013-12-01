@@ -26,7 +26,7 @@ namespace DBEngine
                 myDataAdapter.SelectCommand = new MySqlCommand("select * from test.cal;", myConn);
                 MySqlCommandBuilder cb = new MySqlCommandBuilder(myDataAdapter);
                 myConn.Open();
-                Console.WriteLine("\nConnected!!");
+                Console.WriteLine("\nConnected to the Database!!");
                 myConn.Close();
             }
             catch(Exception Ex){

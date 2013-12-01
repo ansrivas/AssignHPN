@@ -13,15 +13,15 @@ namespace CalendarClient
         public ICalendarAPI calendarAPI;
 
         public Program() {
-            PORT_NUMBER = 3030;
-            pathValue = "/calendardDemo/cal";
+            PORT_NUMBER = 5678;
+            pathValue = "statename.rem";// "/calendardDemo/cal";
             init();
         }
 
         private void init()
         {
             Uri blogAddress = new UriBuilder(Uri.UriSchemeHttp, Environment.MachineName, PORT_NUMBER, pathValue).Uri;
-
+       
             ChannelFactory<ICalendarAPI> calendarAPIFactory = new ChannelFactory<ICalendarAPI>(new WebHttpBinding(WebHttpSecurityMode.None), new EndpointAddress(blogAddress));
             calendarAPIFactory.Endpoint.Behaviors.Add(new XmlRpcEndpointBehavior());
 
@@ -33,8 +33,11 @@ namespace CalendarClient
             Program prg = new Program();
 
             int i = prg.calendarAPI.calendarTest(1, 2);
-
-            Console.WriteLine(i);
+            Console.WriteLine(i + "\n");
+            Console.WriteLine("Please enter date and time in this format-> 13/02/07,16:05");
+            String datetime = Console.ReadLine();
+          //  String str = "hello leute";
+          //  int k = prg.calendarAPI.addAppointment(datetime);
             Console.ReadLine();
         }
 
