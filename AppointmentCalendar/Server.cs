@@ -4,27 +4,18 @@ using System;
 using System.ServiceModel;
 using System.ServiceModel.Description;
 using Microsoft.Samples.XmlRpc;
+using CalendarInterface;
 
 
-namespace Calendar.Test
-{
-    class Program
+class Server
     {
-        static void Main(string[] args)
+        public void initiateServer()
         {
             Console.WriteLine("XML-RPC Demo");
-            Uri baseAddress = new UriBuilder(Uri.UriSchemeHttp, Environment.MachineName, 8080, "/calendardDemo/").Uri;
+            Uri baseAddress = new UriBuilder(Uri.UriSchemeHttp, "localhost"/*Environment.MachineName*/, 8080, "").Uri;
             ServiceHost serviceHost = new ServiceHost(typeof(CalendarAPI));
             var epXmlRpc = serviceHost.AddServiceEndpoint(typeof(ICalendarAPI), new WebHttpBinding(WebHttpSecurityMode.None), new Uri(baseAddress, "./cal"));
             epXmlRpc.Behaviors.Add(new XmlRpcEndpointBehavior());
-
-            /*  
-             * if I want it to listen to some other URI just append whatever you want
-             * 
-             * var webBinding = new WebHttpBinding(WebHttpSecurityMode.None);
-              var epFeed = serviceHost.AddServiceEndpoint(typeof(IFeed), webBinding, new Uri(baseAddress, "./feed"));
-              epFeed.Behaviors.Add(new WebHttpBehavior());
-              */
 
             serviceHost.Open();
 
@@ -35,5 +26,5 @@ namespace Calendar.Test
             serviceHost.Close();
         }
     }
-}
+
 

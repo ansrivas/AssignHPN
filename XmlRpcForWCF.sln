@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarClient", "CalendarC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarEngine", "CalendarEngine\CalendarEngine.csproj", "{84B5ED62-5345-4E41-B611-A41B06293A3A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentCalendar", "AppointmentCalendar\AppointmentCalendar.csproj", "{2215DA2F-9239-4E8B-9ADE-B3218A3E9CB1}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = ConnectivityServices.vsmdi
@@ -55,6 +57,16 @@ Global
 		{84B5ED62-5345-4E41-B611-A41B06293A3A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{84B5ED62-5345-4E41-B611-A41B06293A3A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{84B5ED62-5345-4E41-B611-A41B06293A3A}.Release|x86.ActiveCfg = Release|Any CPU
+		{2215DA2F-9239-4E8B-9ADE-B3218A3E9CB1}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{2215DA2F-9239-4E8B-9ADE-B3218A3E9CB1}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{2215DA2F-9239-4E8B-9ADE-B3218A3E9CB1}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{2215DA2F-9239-4E8B-9ADE-B3218A3E9CB1}.Debug|x86.ActiveCfg = Debug|x86
+		{2215DA2F-9239-4E8B-9ADE-B3218A3E9CB1}.Debug|x86.Build.0 = Debug|x86
+		{2215DA2F-9239-4E8B-9ADE-B3218A3E9CB1}.Release|Any CPU.ActiveCfg = Release|x86
+		{2215DA2F-9239-4E8B-9ADE-B3218A3E9CB1}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{2215DA2F-9239-4E8B-9ADE-B3218A3E9CB1}.Release|Mixed Platforms.Build.0 = Release|x86
+		{2215DA2F-9239-4E8B-9ADE-B3218A3E9CB1}.Release|x86.ActiveCfg = Release|x86
+		{2215DA2F-9239-4E8B-9ADE-B3218A3E9CB1}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

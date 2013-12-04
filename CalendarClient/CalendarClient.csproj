@@ -52,11 +52,11 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=6.6.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86" />
     <Reference Include="System.Runtime.Serialization">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -76,16 +76,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CalendarEngine\CalendarAPI.cs">
-      <Link>CalendarAPI.cs</Link>
+    <Compile Include="..\CalendarEngine\CUtils.cs">
+      <Link>CUtils.cs</Link>
     </Compile>
     <Compile Include="..\CalendarEngine\DatabaseCon.cs">
       <Link>DatabaseCon.cs</Link>
     </Compile>
-    <Compile Include="..\CalendarEngine\Utils.cs">
-      <Link>Utils.cs</Link>
+    <Compile Include="..\CalendarEngine\ICalendarAPI.cs">
+      <Link>ICalendarAPI.cs</Link>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="Client.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
