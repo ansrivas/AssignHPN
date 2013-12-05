@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModifyAppointment));
             this.updateAppointment_button = new System.Windows.Forms.Button();
             this.toTimePicker = new System.Windows.Forms.DateTimePicker();
             this.fromTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -185,7 +186,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(323, 325);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ModifyAppointment";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ModifyAppointment";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

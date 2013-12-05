@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DBEngine  ;
 
 namespace Utils
 {
@@ -13,7 +14,16 @@ namespace Utils
               starttime varchar(6), endtime varchar(6), aptheader varchar(100) , aptcomment varchar(100), author varchar(100));";
 
         public const string sampleData = "INSERT INTO calendar (aptdate, starttime, endtime, aptheader, aptcomment,author) VALUES ('2013-12-25','11:11','12:12', 'India', 'I love you','Ankur');";
-           
 
+        public const string removeRowMessage = "Successfully Deleted Appointment, Update Other Servers!!";
+
+        private static DatabaseCon dbConn;
+
+        public static DatabaseCon getDBConn() {
+
+            dbConn = new DatabaseCon();
+            return dbConn;
+        
+        }
     }
 }

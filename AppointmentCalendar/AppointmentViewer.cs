@@ -5,11 +5,15 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
-using DBEngine;
-using Utils;
 using CalendarClient;
 using System.Data.SQLite;
+using System.Threading;
+using CalendarEngine;
+using DBEngine;
+using Utils;
+
 
 namespace AppointmentCalendar
 {
@@ -17,19 +21,31 @@ namespace AppointmentCalendar
     {
         private Client clientObject;
         private DatabaseCon dbConn;
+        private static Server serverObject;
+
         public AppointmentViewer()
         {
             InitializeComponent();
-            dbConn = new DatabaseCon();
-            clientObject = new Client();
 
+            dbConn = CUtils.getDBConn();  // new DatabaseCon();
+            initializeDBConnections();
+            clientObject = new Client();
+            serverObject = new Server();
+            initServerThread();
 
             populateGrid();
 
-            modify_button.Enabled = false;
-            modify_button.BackColor = System.Drawing.Color.Black;
+        }
 
+        private void initializeDBConnections() {
             
+            String path = Path.GetDirectoryName(Application.ExecutablePath) + "\\appointments.db";
+            if (!File.Exists(path))
+            {
+
+                dbConn.initCon();
+
+            }   
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -43,8 +59,8 @@ namespace AppointmentCalendar
 
             dataGridView1.Rows.Clear();
 
-         
-            DatabaseCon db = new DatabaseCon();
+
+            DatabaseCon db = CUtils.getDBConn();// DatabaseCon();
            
             db.sqlite_conn = new SQLiteConnection(CUtils.dbString);
             db.sqlite_conn.Open();
@@ -60,14 +76,34 @@ namespace AppointmentCalendar
 
             }
 
+            if (dataGridView1.Rows.Count > 0){
+                //Tweak for modify and remove buttons
+
+                modify_button.Enabled = true;
+                modify_button.BackColor = System.Drawing.Color.White;
+                remove_button.Enabled = true;
+                remove_button.BackColor = System.Drawing.Color.White;
+
+            }
+            else {
+                modify_button.Enabled = false;
+                modify_button.BackColor = System.Drawing.Color.Black;
+                remove_button.Enabled = false;
+                remove_button.BackColor = System.Drawing.Color.Black;
+            
+            
+            
+            }
 
 
             db.sqlite_datareader.Close();
             db.sqlite_conn.Close();
+
+          
               
         }
 
-    
+
 
         private void form_Closing(object sender, CancelEventArgs e)
         {
@@ -80,6 +116,10 @@ namespace AppointmentCalendar
             if (dataGridView1.Rows.Count > 0 && dataGridView1.SelectedRows.Count > 0) {
                 modify_button.Enabled = true;
                 modify_button.BackColor = System.Drawing.Color.White;
+
+                remove_button.Enabled = true;
+                remove_button.BackColor = System.Drawing.Color.White;
+
             }
         }
 
@@ -96,7 +136,9 @@ namespace AppointmentCalendar
                 String sql = "DELETE FROM calendar WHERE aptdate='" + date + "' AND starttime ='" + starttime + "' AND endtime ='" + endtime + "' AND aptheader='" + header + "' AND aptcomment = '" + comments + "' AND author ='Ankur'";
                 dbConn.queryDB(sql);
 
-                MessageBox.Show("Successfully Deleted Appointment, Update Other Servers!!");
+                MessageBox.Show(CUtils.removeRowMessage,"Important Message", MessageBoxButtons.OK,
+                               MessageBoxIcon.Exclamation,
+                               MessageBoxDefaultButton.Button1);
                 populateGrid();
                 //Call other servers through XML-RPC call
             }
@@ -112,17 +154,19 @@ namespace AppointmentCalendar
                 String endtime = dataGridView1[2, Row].Value.ToString();
                 String header = dataGridView1[3, Row].Value.ToString();
                 String comments = dataGridView1[4, Row].Value.ToString();
-
+                String author = dataGridView1[5, Row].Value.ToString();
+                
 
 
                 ModifyAppointment modAppointmentwindow = new ModifyAppointment();
-                modAppointmentwindow.setupValues(header,comments, date, starttime, endtime);
+                modAppointmentwindow.setupValues( header, comments, date, starttime, endtime, author);
+                modAppointmentwindow.FormClosing += form_Closing;
                 modAppointmentwindow.ShowDialog();
 
                
 
-                MessageBox.Show("Successfully Deleted Appointment, Update Other Servers!!");
-                populateGrid();
+               
+
                 //Call other servers through XML-RPC call
             }
 
@@ -136,8 +180,16 @@ namespace AppointmentCalendar
             addAppointmentWin.ShowDialog();
         }
 
+        private static void initServerThread() {
 
+            Thread t = new Thread(new ThreadStart(launchServer));
+            t.Start();
+        }
 
+        public static void launchServer()
+        {
+            serverObject.initiateServer();
+        }
   
     }
 }

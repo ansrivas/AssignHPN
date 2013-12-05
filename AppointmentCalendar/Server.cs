@@ -7,24 +7,32 @@ using Microsoft.Samples.XmlRpc;
 using CalendarInterface;
 
 
-class Server
+namespace CalendarEngine
+{
+    class Server
     {
+        private ServiceHost serviceHost;
         public void initiateServer()
         {
-            Console.WriteLine("XML-RPC Demo");
+            //Console.WriteLine("XML-RPC Demo");
             Uri baseAddress = new UriBuilder(Uri.UriSchemeHttp, "localhost"/*Environment.MachineName*/, 8080, "").Uri;
-            ServiceHost serviceHost = new ServiceHost(typeof(CalendarAPI));
+            serviceHost = new ServiceHost(typeof(CalendarAPI));
             var epXmlRpc = serviceHost.AddServiceEndpoint(typeof(ICalendarAPI), new WebHttpBinding(WebHttpSecurityMode.None), new Uri(baseAddress, "./cal"));
             epXmlRpc.Behaviors.Add(new XmlRpcEndpointBehavior());
 
             serviceHost.Open();
+            
+            //For debugging purposes
+            System.Windows.Forms.MessageBox.Show("Server Started listening at: " + epXmlRpc.ListenUri);
+    
+            
+        }
 
-            Console.WriteLine("API endpoint listening at {0}", epXmlRpc.ListenUri);
-            Console.Write("Press ENTER to quit");
-            Console.ReadLine();
+        public void terminateServer() {
 
             serviceHost.Close();
         }
     }
 
 
+}

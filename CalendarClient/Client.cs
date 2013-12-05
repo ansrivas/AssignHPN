@@ -34,6 +34,7 @@ namespace CalendarClient
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Sending request to Server");
             Client prg = new Client();
             int i = prg.calendarAPI.sum(1,5);
             Console.WriteLine(i + "\n");

@@ -26,7 +26,9 @@ namespace CalendarInterface
         [OperationContract(Action = "modAppointment")]
         void modifyAppointment(String sql);
 
-      
+
+        [OperationContract(Action = "sum")]
+        int sum(int a, int b );
 
     };
 
@@ -68,6 +70,10 @@ namespace CalendarInterface
 
             dbConn.queryDB(param);
             return;
-        }       
+        }
+
+        int ICalendarAPI.sum(int a, int b) {
+            return (a + b);
+        }
     }
 }

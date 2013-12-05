@@ -26,16 +26,7 @@ namespace DBEngine
         public void initCon()
         {
 
-            int row = queryDB(CUtils.createTableQuery);
-            row = queryDB(CUtils.sampleData);
-            
-            //Console.WriteLine(row);
-
-            //Display the results now
-            //str = "SELECT * from calendar";
-            //DataTable dtn = getDataSet(str);
-
-            
+            int row = queryDB(CUtils.createTableQuery);         
        
         }
 
@@ -51,6 +42,24 @@ namespace DBEngine
             return rowsUpdated;
         }
 
+        public String queryPrimeKey(string sql)
+        {
+            String primaryKey = "";
+            sqlite_conn = new SQLiteConnection(CUtils.dbString);
+            sqlite_conn.Open();
+            sqlite_cmd = sqlite_conn.CreateCommand();
+            sqlite_cmd.CommandText = sql;
+            sqlite_datareader = sqlite_cmd.ExecuteReader();
+            while (sqlite_datareader.Read()) {
+                primaryKey = sqlite_datareader[0].ToString();
+            }
+            sqlite_datareader.Close();
+            sqlite_conn.Close();
+            return primaryKey;
+        }
+
+       
+        //Couldn't findout a way to work with it
         public DataTable getDataSet(string sql)
         {
             DataTable dt = new DataTable();
@@ -62,6 +71,7 @@ namespace DBEngine
                 sqlite_cmd = sqlite_conn.CreateCommand();
                 sqlite_cmd.CommandText = sql;
                 sqlite_datareader = sqlite_cmd.ExecuteReader();
+                
                 while (sqlite_datareader.Read()) // Read() returns true if there is still a result line to read
                 {
                     // Print out the content of the text field:

@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using Utils;
 using DBEngine;
 using CalendarClient;
 
@@ -20,8 +20,14 @@ namespace AppointmentCalendar
         public AddAppointment()
         {
             InitializeComponent();
-            dbConn = new DatabaseCon();
+            dbConn = CUtils.getDBConn();
             clientObject = new Client();
+            setupFormatting();
+
+            
+        }
+
+        private void setupFormatting() {
 
             datePicker.Format = DateTimePickerFormat.Custom;
             datePicker.CustomFormat = "yyyy-MM-dd";
@@ -29,8 +35,8 @@ namespace AppointmentCalendar
             fromTimePicker.CustomFormat = "HH:mm";
             toTimePicker.Format = DateTimePickerFormat.Custom;
             toTimePicker.CustomFormat = "HH:mm";
-            
         }
+
 
         private void saveAppointment_button_Click(object sender, EventArgs e)
         {
