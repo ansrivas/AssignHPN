@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using DBEngine;
 using Utils;
+using CalendarClient;
 
 namespace AppointmentCalendar
 {
@@ -16,12 +17,14 @@ namespace AppointmentCalendar
         private String author;
         private String primaryKey;
         private DatabaseCon dbConn;
+        private Client clientObject;
 
         public ModifyAppointment()
         {
             InitializeComponent();
             setupFormatting();
             dbConn = CUtils.getDBConn();
+            clientObject = new Client();
         }
 
         private void setupFormatting()
@@ -62,7 +65,21 @@ namespace AppointmentCalendar
 
 
             String updateAppointmentSql = "Update calendar set aptdate='"+date+ "', starttime='" + starttime+ "', endtime ='"+ endtime + "', aptheader='"+ header + "', aptcomment ='" +comments + "',author='"+ author +"'  where aptid='"+ primaryKey +"';";
+            
             dbConn.queryDB(updateAppointmentSql);
+
+
+            //Now create channel factory and call others
+            String getIpAndPort = "select * from user";
+            String listOfIPs = dbConn.getDataSet(getIpAndPort);
+            String[] hosts = CUtils.parse(listOfIPs);
+
+            foreach (String ip in hosts)
+            {
+                clientObject.initClientConfig(ip, "", "MODIFY", updateAppointmentSql);
+
+            }
+                
 
 
             MessageBox.Show("Successfully Modified Appointment, Update Other Servers!!", "Important Message", MessageBoxButtons.OK,

@@ -33,16 +33,22 @@ namespace CalendarClient
             switch (operation)
             {
                 case "ADD":
+                    System.Windows.Forms.MessageBox.Show("Adding to the machine with ip" + machineIP);
+                    return;
                     int i = calendarAPI.addAppointment(param);
                     Console.WriteLine(i + "\n");
 
                     Console.ReadLine();
                     break;
                 case "MODIFY":
+                    System.Windows.Forms.MessageBox.Show("Modifying to the machine with ip" + machineIP);
+                    return;
                     calendarAPI.modifyAppointment(param);
                     break;
 
                 case "REMOVE":
+                    System.Windows.Forms.MessageBox.Show("REMOVING to the machine with ip" + machineIP);
+                    return;
                     calendarAPI.removeAppointment(param);
                     break;
             }

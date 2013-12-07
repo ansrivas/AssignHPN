@@ -49,13 +49,26 @@ namespace AppointmentCalendar
                 String fromTime = fromTimePicker.Text;
                 String toTime = toTimePicker.Text;
 
-                //String parameters = "aptdate:"+date +",starttime:" +fromTime+ ",endtime:" +toTime+ ",aptheader:" +header + ",aptcomment:"+ comments + ",author:Ankur";
-
-                String sql = @"INSERT INTO calendar (aptdate, starttime, endtime, aptheader, aptcomment,author) VALUES ('" + date + "','" + fromTime + "','" + toTime + "','" + header + "','" + comments + "','" + "Ankur');";
+                String sql = @"INSERT INTO calendar (aptdate, starttime, endtime, aptheader, aptcomment,author) VALUES ('" + date + "','" + fromTime + "','" + toTime + "','" + header + "','" + comments + "','Ankur');";
 
                 dbConn.queryDB(sql);
-                //Now create channel factory and call others
 
+                String getIpAndPort = "select * from user";
+
+                String listOfIPs = dbConn.getDataSet(getIpAndPort);
+                String []hosts = CUtils.parse(listOfIPs);
+
+
+                //Now create channel factory and call others
+                //Fetch the IP from, loop through it and conn
+                
+                foreach (String ip in hosts) {
+                    if (!ip.Equals(""))
+                    {
+                        clientObject.initClientConfig(ip, "", "ADD", sql);
+                    }
+                }
+                
                 this.Close();
             }
             else

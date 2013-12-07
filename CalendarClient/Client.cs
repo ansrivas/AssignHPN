@@ -19,6 +19,10 @@ namespace CalendarClient
             init();
         }
 
+        public ~Client(){
+        
+            
+        }
         private void init()
         {
             PORT_NUMBER = 8080;
@@ -30,6 +34,9 @@ namespace CalendarClient
             ChannelFactory<ICalendarAPI> calendarAPIFactory = new ChannelFactory<ICalendarAPI>(new WebHttpBinding(WebHttpSecurityMode.None), new EndpointAddress(blogAddress));
             calendarAPIFactory.Endpoint.Behaviors.Add(new XmlRpcEndpointBehavior());
             calendarAPI = calendarAPIFactory.CreateChannel();
+
+            
+           
         }
 
         static void Main(string[] args)

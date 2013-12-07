@@ -12,6 +12,16 @@ namespace CalendarEngine
     class Server
     {
         private ServiceHost serviceHost;
+        public Server() { 
+        
+        }
+
+        ~Server() {
+
+            //cleanup in the destructor
+            terminateServer();
+        }
+
         public void initiateServer()
         {
             //Console.WriteLine("XML-RPC Demo");

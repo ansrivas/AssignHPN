@@ -26,8 +26,10 @@ namespace DBEngine
         public void initCon()
         {
 
-            int row = queryDB(CUtils.createTableQuery);         
-       
+            int row = queryDB(CUtils.createTableQuery);
+            row = queryDB(CUtils.createIPTableQuery);
+            queryDB(CUtils.sampleIPData1);
+            queryDB(CUtils.sampleIPData2);
         }
 
         public int queryDB(string sql)
@@ -58,12 +60,14 @@ namespace DBEngine
             return primaryKey;
         }
 
+
+
        
-        //Couldn't findout a way to work with it
-        public DataTable getDataSet(string sql)
+        //Each row is returned in a semi-colon separated manner and each column is separated by comma
+        public String getDataSet(string sql)
         {
-            DataTable dt = new DataTable();
-            
+            String row = "";
+            String newRow = "";
             try
             {
                 sqlite_conn = new SQLiteConnection(CUtils.dbString);
@@ -71,15 +75,27 @@ namespace DBEngine
                 sqlite_cmd = sqlite_conn.CreateCommand();
                 sqlite_cmd.CommandText = sql;
                 sqlite_datareader = sqlite_cmd.ExecuteReader();
-                
+
+                int fieldCount = sqlite_datareader.FieldCount;
+                int iCounter =0 ; //Start reading from the first column
                 while (sqlite_datareader.Read()) // Read() returns true if there is still a result line to read
                 {
-                    // Print out the content of the text field:
+                    int temp = fieldCount;
+                    iCounter = 0;
+                    while(temp > 0 ){
+
+                        row += sqlite_datareader[iCounter].ToString() ;
+                        if (temp - 1 > 0)
+                            row = row + ",";
+                        iCounter++;
+                        temp--;
+                    }
+                    row += ";";
+                    
                    // System.Console.WriteLine(sqlite_datareader.GetDateTime(1).ToString());
                 }
-                
-                dt.Load(sqlite_datareader);
-
+                 newRow = row.TrimEnd(';');
+  
                 sqlite_datareader.Close();
                 sqlite_conn.Close();
             }
@@ -87,7 +103,10 @@ namespace DBEngine
             {
                 throw new Exception(e.Message);
             }
-            return dt;
+            return newRow;
         }
+ 
     }
-}
+    
+    
+    }

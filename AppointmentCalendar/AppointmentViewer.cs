@@ -56,7 +56,15 @@ namespace AppointmentCalendar
 
         private void populateGrid() {
 
-
+           String str = dbConn.getDataSet("select * from calendar");
+           if (str == "")
+           {
+               MessageBox.Show("Empty Data");
+           }
+            CUtils.parseStringAddtoDB(str, "ADD");
+            MessageBox.Show(str);
+            return;
+         
             dataGridView1.Rows.Clear();
 
 
@@ -67,6 +75,7 @@ namespace AppointmentCalendar
             db.sqlite_cmd = db.sqlite_conn.CreateCommand();
             db.sqlite_cmd.CommandText = "select * from calendar";
             db.sqlite_datareader = db.sqlite_cmd.ExecuteReader();
+            
             while (db.sqlite_datareader.Read()) // Read() returns true if there is still a result line to read
             {
 
@@ -135,6 +144,23 @@ namespace AppointmentCalendar
 
                 String sql = "DELETE FROM calendar WHERE aptdate='" + date + "' AND starttime ='" + starttime + "' AND endtime ='" + endtime + "' AND aptheader='" + header + "' AND aptcomment = '" + comments + "' AND author ='Ankur'";
                 dbConn.queryDB(sql);
+
+                String getIpAndPort = "select * from user";
+
+                String listOfIPs = dbConn.getDataSet(getIpAndPort);
+                String[] hosts = CUtils.parse(listOfIPs);
+
+
+                //Now create channel factory and call others
+                //Fetch the IP from, loop through it and conn
+
+                foreach (String ip in hosts)
+                {
+
+                    clientObject.initClientConfig(ip, "", "REMOVE", sql);
+
+                }
+                
 
                 MessageBox.Show(CUtils.removeRowMessage,"Important Message", MessageBoxButtons.OK,
                                MessageBoxIcon.Exclamation,

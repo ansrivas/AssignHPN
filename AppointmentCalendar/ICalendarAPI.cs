@@ -26,9 +26,15 @@ namespace CalendarInterface
         [OperationContract(Action = "modAppointment")]
         void modifyAppointment(String sql);
 
+        [OperationContract(Action = "registerOnNW")]
+        String registerOnNW();
 
         [OperationContract(Action = "sum")]
         int sum(int a, int b );
+
+        [OperationContract(Action = "syncDatabase")]
+        String syncDatabase();
+
 
     };
 
@@ -72,8 +78,27 @@ namespace CalendarInterface
             return;
         }
 
+
+        //Return the list of machines on the network
+        String ICalendarAPI.registerOnNW() { 
+        
+            String sqlQueryIPTable = "select ipAddr from user";
+            String dataSet = dbConn.getDataSet(sqlQueryIPTable);
+
+            return dataSet;
+        }
+
+        String ICalendarAPI.syncDatabase() {
+
+            String sqlQueryGetDB = "select * from calendar";
+            String dataset = dbConn.getDataSet(sqlQueryGetDB);
+            return dataset;
+
+        }
+
         int ICalendarAPI.sum(int a, int b) {
             return (a + b);
         }
     }
 }
+
