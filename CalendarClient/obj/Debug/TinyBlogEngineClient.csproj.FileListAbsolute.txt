@@ -1,7 +1,0 @@
-C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngineClient\bin\Debug\TinyBlogEngineClient.exe
-C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngineClient\bin\Debug\TinyBlogEngineClient.pdb
-C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngineClient\bin\Debug\Microsoft.Samples.XmlRpc.dll
-C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngineClient\bin\Debug\Microsoft.Samples.XmlRpc.pdb
-C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngineClient\obj\Debug\TinyBlogEngineClient.csprojResolveAssemblyReference.cache
-C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngineClient\obj\Debug\TinyBlogEngineClient.exe
-C:\Users\ankur\Downloads\Compressed\XmlRpcForWCF\XmlRpcForWCF\TinyBlogEngineClient\obj\Debug\TinyBlogEngineClient.pdb

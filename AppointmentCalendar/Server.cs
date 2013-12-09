@@ -25,9 +25,9 @@ namespace CalendarEngine
         public void initiateServer()
         {
             //Console.WriteLine("XML-RPC Demo");
-            Uri baseAddress = new UriBuilder(Uri.UriSchemeHttp, "localhost"/*Environment.MachineName*/, 8080, "").Uri;
+            Uri baseAddress = new UriBuilder(Uri.UriSchemeHttp, Environment.MachineName, 8080, "").Uri;
             serviceHost = new ServiceHost(typeof(CalendarAPI));
-            var epXmlRpc = serviceHost.AddServiceEndpoint(typeof(ICalendarAPI), new WebHttpBinding(WebHttpSecurityMode.None), new Uri(baseAddress, "./cal"));
+            var epXmlRpc = serviceHost.AddServiceEndpoint(typeof(ICalendarAPI), new WebHttpBinding(WebHttpSecurityMode.None), new Uri(baseAddress, ""));
             epXmlRpc.Behaviors.Add(new XmlRpcEndpointBehavior());
 
             serviceHost.Open();

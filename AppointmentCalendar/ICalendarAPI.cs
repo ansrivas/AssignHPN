@@ -17,24 +17,33 @@ namespace CalendarInterface
     [ServiceContract]
     public interface ICalendarAPI {
 
-        [OperationContract(Action = "addAppointment")]
+        [OperationContract(Action = "ICalendarAPI.addAppointment")]
         int addAppointment(String sql);
 
-        [OperationContract(Action = "removeAppointment")]
-        void removeAppointment(String sql);
+        [OperationContract(Action = "ICalendarAPI.removeAppointment")]
+        int removeAppointment(String sql);
 
-        [OperationContract(Action = "modAppointment")]
-        void modifyAppointment(String sql);
+        [OperationContract(Action = "ICalendarAPI.modAppointment")]
+        int modifyAppointment(String sql);
 
-        [OperationContract(Action = "registerOnNW")]
-        String registerOnNW();
+        [OperationContract(Action = "ICalendarAPI.registerOnNW")]
+        String registerOnNW(String sql);
 
-        [OperationContract(Action = "sum")]
+        [OperationContract(Action = "ICalendarAPI.sum")]
         int sum(int a, int b );
 
-        [OperationContract(Action = "syncDatabase")]
-        String syncDatabase();
+        [OperationContract(Action = "ICalendarAPI.syncDatabase")]
+        String syncDatabase(String str);
 
+        [OperationContract(Action = "ICalendarAPI.insertNewIPInDB")]
+        int insertNewIPInDB(String ip);
+
+        [OperationContract(Action = "ICalendarAPI.removeIPFromDB")]
+        int removeIPFromDB(String ip);
+
+
+         [OperationContract(Action = "ICalendarAPI.returnString")]
+        String returnString(String ip);
 
     };
 
@@ -44,8 +53,7 @@ namespace CalendarInterface
         private DatabaseCon dbConn;
         private int DELAYED_UPDATE ;
         System.Threading.Timer timer;
-
-
+    
         public CalendarAPI()
 		{
             DELAYED_UPDATE = 4000;
@@ -60,44 +68,78 @@ namespace CalendarInterface
 
         int ICalendarAPI.addAppointment(String param)
         {
-            return dbConn.queryDB(param);
+        //    System.Windows.Forms.MessageBox.Show("addAppointment param : " + param);
+            int result = dbConn.queryDB(param);
+           
+            return result;
            
         }
 
 
-        void ICalendarAPI.removeAppointment(String param) {
+        int ICalendarAPI.removeAppointment(String param) {
 
-            dbConn.queryDB(param);
-            return;
+          //  System.Windows.Forms.MessageBox.Show("removeAppointment param : " + param);
+            int i = dbConn.queryDB(param);
+            return i;
         }
 
 
-        void ICalendarAPI.modifyAppointment(String param) {
+        int ICalendarAPI.modifyAppointment(String param) {
 
-            dbConn.queryDB(param);
-            return;
+          //  System.Windows.Forms.MessageBox.Show("modifyAppointment param :  " + param);
+            int i = dbConn.queryDB(param);
+            return i; 
         }
 
 
         //Return the list of machines on the network
-        String ICalendarAPI.registerOnNW() { 
+        string ICalendarAPI.registerOnNW(String sql) { 
         
             String sqlQueryIPTable = "select ipAddr from user";
             String dataSet = dbConn.getDataSet(sqlQueryIPTable);
-
+           // System.Windows.Forms.MessageBox.Show(dataSet);
             return dataSet;
         }
 
-        String ICalendarAPI.syncDatabase() {
+        string ICalendarAPI.syncDatabase(String sql) {
 
             String sqlQueryGetDB = "select * from calendar";
-            String dataset = dbConn.getDataSet(sqlQueryGetDB);
-            return dataset;
+            String dataSet = dbConn.getDataSet(sqlQueryGetDB);
+           // System.Windows.Forms.MessageBox.Show(dataSet);
+            return dataSet;
 
         }
 
+
+
+        int ICalendarAPI.insertNewIPInDB(String ip)
+        { 
+            String query = "INSERT INTO user (ipAddr) VALUES ('" + ip +"');";
+            return dbConn.queryDB(query);
+        
+        }
+
+
+        int ICalendarAPI.removeIPFromDB(String ip) {
+
+            String query = "DELETE FROM user WHERE ipAddr='" + ip + "'";
+            return dbConn.queryDB(query);
+        }
+
+
+
         int ICalendarAPI.sum(int a, int b) {
             return (a + b);
+        }
+
+
+        //Test debug API
+        String ICalendarAPI.returnString(String str) { 
+            
+            string ret = "Ankur";
+            System.Windows.Forms.MessageBox.Show(ret);
+
+            return ret;
         }
     }
 }

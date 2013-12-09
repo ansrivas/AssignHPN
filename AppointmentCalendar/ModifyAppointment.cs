@@ -76,8 +76,11 @@ namespace AppointmentCalendar
 
             foreach (String ip in hosts)
             {
-                clientObject.initClientConfig(ip, "", "MODIFY", updateAppointmentSql);
-
+                if (!ip.Equals("") && !ip.Equals(Environment.MachineName))
+                {
+                    clientObject.initClientConfig(ip, "MODIFY", updateAppointmentSql);
+                    CUtils.delay(10000);
+                }
             }
                 
 

@@ -1,9 +1,0 @@
-D:\Codebase\DCITproject\AssignHPN\CalendarEngine\bin\Debug\CalendarEngine.exe
-D:\Codebase\DCITproject\AssignHPN\CalendarEngine\bin\Debug\CalendarEngine.pdb
-D:\Codebase\DCITproject\AssignHPN\CalendarEngine\bin\Debug\Microsoft.Samples.XmlRpc.dll
-D:\Codebase\DCITproject\AssignHPN\CalendarEngine\bin\Debug\System.Data.SQLite.dll
-D:\Codebase\DCITproject\AssignHPN\CalendarEngine\bin\Debug\Microsoft.Samples.XmlRpc.pdb
-D:\Codebase\DCITproject\AssignHPN\CalendarEngine\bin\Debug\System.Data.SQLite.xml
-D:\Codebase\DCITproject\AssignHPN\CalendarEngine\obj\Debug\CalendarEngine.exe
-D:\Codebase\DCITproject\AssignHPN\CalendarEngine\obj\Debug\CalendarEngine.pdb
-D:\Codebase\DCITproject\AssignHPN\CalendarEngine\obj\Debug\CalendarEngine.csprojResolveAssemblyReference.cache

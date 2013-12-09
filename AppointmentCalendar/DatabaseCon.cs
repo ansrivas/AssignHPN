@@ -28,8 +28,11 @@ namespace DBEngine
 
             int row = queryDB(CUtils.createTableQuery);
             row = queryDB(CUtils.createIPTableQuery);
-            queryDB(CUtils.sampleIPData1);
-            queryDB(CUtils.sampleIPData2);
+
+            //Just insert your own user ip in the DB
+            String sampleIPData1 = "INSERT INTO user (ipAddr) VALUES ('" + Environment.MachineName + "');";
+            queryDB(sampleIPData1);
+            
         }
 
         public int queryDB(string sql)

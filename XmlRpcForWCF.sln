@@ -8,8 +8,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Samples.XmlRpc", "Microsoft.Samples.XmlRpc\Microsoft.Samples.XmlRpc.csproj", "{D556D0B7-A193-4610-8DD3-17B715F2C868}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarClient", "CalendarClient\CalendarClient.csproj", "{F8BF06C4-604F-4FE7-821F-DC5D51779CCF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentCalendar", "AppointmentCalendar\AppointmentCalendar.csproj", "{2215DA2F-9239-4E8B-9ADE-B3218A3E9CB1}"
 EndProject
 Global
@@ -35,16 +33,6 @@ Global
 		{D556D0B7-A193-4610-8DD3-17B715F2C868}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D556D0B7-A193-4610-8DD3-17B715F2C868}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D556D0B7-A193-4610-8DD3-17B715F2C868}.Release|x86.ActiveCfg = Release|Any CPU
-		{F8BF06C4-604F-4FE7-821F-DC5D51779CCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8BF06C4-604F-4FE7-821F-DC5D51779CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8BF06C4-604F-4FE7-821F-DC5D51779CCF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{F8BF06C4-604F-4FE7-821F-DC5D51779CCF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{F8BF06C4-604F-4FE7-821F-DC5D51779CCF}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F8BF06C4-604F-4FE7-821F-DC5D51779CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8BF06C4-604F-4FE7-821F-DC5D51779CCF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F8BF06C4-604F-4FE7-821F-DC5D51779CCF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{F8BF06C4-604F-4FE7-821F-DC5D51779CCF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{F8BF06C4-604F-4FE7-821F-DC5D51779CCF}.Release|x86.ActiveCfg = Release|Any CPU
 		{2215DA2F-9239-4E8B-9ADE-B3218A3E9CB1}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{2215DA2F-9239-4E8B-9ADE-B3218A3E9CB1}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{2215DA2F-9239-4E8B-9ADE-B3218A3E9CB1}.Debug|Mixed Platforms.Build.0 = Debug|x86
@@ -58,8 +46,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{F8BF06C4-604F-4FE7-821F-DC5D51779CCF} = {29A3E001-145F-4FCD-9D60-FF64B6957738}
 	EndGlobalSection
 EndGlobal

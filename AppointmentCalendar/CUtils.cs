@@ -19,8 +19,12 @@ namespace Utils
 
         public const String createIPTableQuery = @"CREATE TABLE IF NOT EXISTS user (ipAddr varchar(16) primary key );";
 
-        public const String sampleIPData1 = "INSERT INTO user (ipAddr) VALUES ('192.168.1.1');";
-        public const String sampleIPData2 = "INSERT INTO user (ipAddr) VALUES ('192.168.1.2');";
+        public const String rootMachine = "ANKUR-PC";
+
+        public static void delay(int millisec){
+        
+        for(int i =0 ;i < 10000;i++){}
+        }
 
         private static DatabaseCon dbConn;
 
@@ -33,9 +37,8 @@ namespace Utils
 
         public static String[] parse(String str) { 
         
-        String []inputs = str.Split(';');
-
-        return inputs;
+            String []inputs = str.Split(';');
+            return inputs;
         }
 
 
@@ -44,33 +47,26 @@ namespace Utils
             String query = "";
             String[] words = sql.Split(';');
             int numberOfResults = words.Length;
-            for (int i = 0; i < numberOfResults; i++)
-            {
+            
                 foreach (string word in words)
                 {
                     String[] inputs = word.Split(',');
                     switch (choice)
                     {
-                        case "ADD":
-                            //  query =  @"INSERT INTO calendar (aptdate, starttime, endtime, aptheader, aptcomment,author) VALUES ('" + inputs[1] + "','" + inputs[2] + "','" + inputs[3] + "','" + inputs[4] + "','" + inputs[5] + "','" + inputs[6] + ");";
-
+                        case "REGISTER_ON_NW":
+                            
+                            query = "INSERT INTO user (ipAddr) VALUES ('" + inputs[0] + "');";
+                            
                             break;
-                        case "MODIFY":
-                            //  query = "Update calendar set aptdate='"+date+ "', starttime='" + starttime+ "', endtime ='"+ endtime + "', aptheader='"+ header + "', aptcomment ='" +comments + "',author='"+ author +"'  where aptid='"+ primaryKey +"';";
-                            break;
-
-                        case "REMOVE":
-                            break;
+                        case "SYNC_DB":
+                            query = "INSERT INTO calendar (aptid,aptdate, starttime, endtime, aptheader, aptcomment,author) VALUES ('" + inputs[0] + "','" + inputs[1] + "','" + inputs[2] + "', '" + inputs[3] + "', '" + inputs[4] + "','" + inputs[5] + "','" + inputs[6]+ "');";
+                            
+                             break;
                     }
+                    dbConn.queryDB(query);
                 }
-
-              
-             dbConn.queryDB(query);
-            }
-
-
-
-            return;
+          
+           return;
         }
     }
 }

@@ -15,6 +15,7 @@ using DBEngine;
 using Utils;
 
 
+
 namespace AppointmentCalendar
 {
     public partial class AppointmentViewer : Form
@@ -22,6 +23,7 @@ namespace AppointmentCalendar
         private Client clientObject;
         private DatabaseCon dbConn;
         private static Server serverObject;
+        private System.Windows.Forms.Timer timer;
 
         public AppointmentViewer()
         {
@@ -29,9 +31,11 @@ namespace AppointmentCalendar
 
             dbConn = CUtils.getDBConn();  // new DatabaseCon();
             initializeDBConnections();
+         
             clientObject = new Client();
             serverObject = new Server();
             initServerThread();
+            InitTimer();
 
             populateGrid();
 
@@ -54,9 +58,9 @@ namespace AppointmentCalendar
         }
 
 
-        private void populateGrid() {
+        private  void populateGrid() {
 
-           String str = dbConn.getDataSet("select * from calendar");
+          /* String str = dbConn.getDataSet("select * from calendar");
            if (str == "")
            {
                MessageBox.Show("Empty Data");
@@ -64,7 +68,7 @@ namespace AppointmentCalendar
             CUtils.parseStringAddtoDB(str, "ADD");
             MessageBox.Show(str);
             return;
-         
+         */
             dataGridView1.Rows.Clear();
 
 
@@ -142,7 +146,7 @@ namespace AppointmentCalendar
                 String header = dataGridView1[3, Row].Value.ToString();
                 String comments = dataGridView1[4, Row].Value.ToString();
 
-                String sql = "DELETE FROM calendar WHERE aptdate='" + date + "' AND starttime ='" + starttime + "' AND endtime ='" + endtime + "' AND aptheader='" + header + "' AND aptcomment = '" + comments + "' AND author ='Ankur'";
+                String sql = "DELETE FROM calendar WHERE aptdate='" + date + "' AND starttime ='" + starttime + "' AND endtime ='" + endtime + "' AND aptheader='" + header + "' AND aptcomment = '" + comments + "' AND author ='"+ Environment.MachineName+ "'";
                 dbConn.queryDB(sql);
 
                 String getIpAndPort = "select * from user";
@@ -156,8 +160,11 @@ namespace AppointmentCalendar
 
                 foreach (String ip in hosts)
                 {
-
-                    clientObject.initClientConfig(ip, "", "REMOVE", sql);
+                    if (!ip.Equals("") && !ip.Equals(Environment.MachineName))
+                    {
+                        clientObject.initClientConfig(ip, "REMOVE", sql);
+                        CUtils.delay(10000);
+                    }
 
                 }
                 
@@ -216,6 +223,103 @@ namespace AppointmentCalendar
         {
             serverObject.initiateServer();
         }
+
+      
+
+
+        private void leave_button_Click(object sender, EventArgs e)
+        {
+            String getIpAndPort = "select * from user";
+
+            String listOfIPs = dbConn.getDataSet(getIpAndPort);
+            String[] hosts = CUtils.parse(listOfIPs);
+
+
+            //Now create channel factory and call others
+            //Fetch the IP from, loop through it and conn
+
+            foreach (String ip in hosts)
+            {
+                if (!ip.Equals("") && !ip.Equals(Environment.MachineName))
+                {
+                    clientObject.initClientConfig(ip, "LEAVE_NETWORK", Environment.MachineName);
+                    CUtils.delay(10000);
+                }
+            }
+
+
+            for (int i = 0; i < 10000; i++) { }
+
+            String path = Path.GetDirectoryName(Application.ExecutablePath) + "\\appointments.db";
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+            MessageBox.Show("Successfully left the Calendar Network");
+            this.Close();
+        }
+
+        private void join_button_Click(object sender, EventArgs e)
+        {
+            String machineNames = clientObject.initClientConfig(CUtils.rootMachine, "REGISTER_ON_NW","");
+            CUtils.parseStringAddtoDB(machineNames, "REGISTER_ON_NW");
+            
+            for (int i = 0; i < 5000; i++) { }
+
+            String db = clientObject.initClientConfig("BAGEND", "SYNC_DB", "");
+            CUtils.parseStringAddtoDB(db,"SYNC_DB");
+
+
+            //Send my ip to all the machines now
+             String getIpAndPort = "select * from user";
+
+            String listOfIPs = dbConn.getDataSet(getIpAndPort);
+            String[] hosts = CUtils.parse(listOfIPs);
+
+
+            //Now create channel factory and call others
+            //Fetch the IP from, loop through it and conn
+
+            foreach (String ip in hosts)
+            {
+                if (!ip.Equals("") && !ip.Equals(Environment.MachineName))
+                {
+
+                    clientObject.initClientConfig(ip, "INSERT_IP_TO_DB", Environment.MachineName);
+                    CUtils.delay(10000);
+                }
+            }
+        }
+
+        private void refresh_button_Click(object sender, EventArgs e)
+        {
+            populateGrid();
+        }
+
+
+        
+        public void InitTimer()
+        {
+            timer = new System.Windows.Forms.Timer();
+            timer.Tick += new EventHandler(timer1_Tick);
+            timer.Interval = 10000; // in miliseconds
+            timer.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            populateGrid();
+        }
+
+     
   
     }
+
+
+  
+
+
+    
+      
+    
 }

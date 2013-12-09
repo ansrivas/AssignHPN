@@ -49,7 +49,7 @@ namespace AppointmentCalendar
                 String fromTime = fromTimePicker.Text;
                 String toTime = toTimePicker.Text;
 
-                String sql = @"INSERT INTO calendar (aptdate, starttime, endtime, aptheader, aptcomment,author) VALUES ('" + date + "','" + fromTime + "','" + toTime + "','" + header + "','" + comments + "','Ankur');";
+                String sql = @"INSERT INTO calendar (aptdate, starttime, endtime, aptheader, aptcomment,author) VALUES ('" + date + "','" + fromTime + "','" + toTime + "','" + header + "','" + comments + "','"+Environment.MachineName+"');";
 
                 dbConn.queryDB(sql);
 
@@ -63,9 +63,10 @@ namespace AppointmentCalendar
                 //Fetch the IP from, loop through it and conn
                 
                 foreach (String ip in hosts) {
-                    if (!ip.Equals(""))
+                    if (!ip.Equals("") && !ip.Equals(Environment.MachineName))
                     {
-                        clientObject.initClientConfig(ip, "", "ADD", sql);
+                        clientObject.initClientConfig(ip, "ADD", sql);
+                        CUtils.delay(10000);
                     }
                 }
                 

@@ -40,8 +40,13 @@
             this.remove_button = new System.Windows.Forms.Button();
             this.modify_button = new System.Windows.Forms.Button();
             this.add_button = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.leave_button = new System.Windows.Forms.Button();
+            this.join_button = new System.Windows.Forms.Button();
+            this.refresh_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -60,7 +65,7 @@
             this.Comments,
             this.Creator});
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ControlLightLight;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 17);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 77);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -110,7 +115,7 @@
             this.groupBox2.Controls.Add(this.modify_button);
             this.groupBox2.Controls.Add(this.add_button);
             this.groupBox2.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(97, 203);
+            this.groupBox2.Location = new System.Drawing.Point(97, 237);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(478, 71);
             this.groupBox2.TabIndex = 4;
@@ -153,13 +158,62 @@
             this.add_button.UseVisualStyleBackColor = false;
             this.add_button.Click += new System.EventHandler(this.add_button_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.leave_button);
+            this.groupBox1.Controls.Add(this.join_button);
+            this.groupBox1.Location = new System.Drawing.Point(12, 13);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(292, 53);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Network";
+            // 
+            // leave_button
+            // 
+            this.leave_button.BackColor = System.Drawing.Color.White;
+            this.leave_button.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.leave_button.Location = new System.Drawing.Point(169, 16);
+            this.leave_button.Name = "leave_button";
+            this.leave_button.Size = new System.Drawing.Size(86, 23);
+            this.leave_button.TabIndex = 1;
+            this.leave_button.Text = "Leave";
+            this.leave_button.UseVisualStyleBackColor = false;
+            this.leave_button.Click += new System.EventHandler(this.leave_button_Click);
+            // 
+            // join_button
+            // 
+            this.join_button.BackColor = System.Drawing.Color.White;
+            this.join_button.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.join_button.Location = new System.Drawing.Point(37, 16);
+            this.join_button.Name = "join_button";
+            this.join_button.Size = new System.Drawing.Size(86, 23);
+            this.join_button.TabIndex = 0;
+            this.join_button.Text = "Join";
+            this.join_button.UseVisualStyleBackColor = false;
+            this.join_button.Click += new System.EventHandler(this.join_button_Click);
+            // 
+            // refresh_button
+            // 
+            this.refresh_button.BackColor = System.Drawing.Color.White;
+            this.refresh_button.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.refresh_button.Location = new System.Drawing.Point(585, 48);
+            this.refresh_button.Name = "refresh_button";
+            this.refresh_button.Size = new System.Drawing.Size(75, 23);
+            this.refresh_button.TabIndex = 6;
+            this.refresh_button.Text = "Refresh";
+            this.refresh_button.UseVisualStyleBackColor = false;
+            this.refresh_button.Click += new System.EventHandler(this.refresh_button_Click);
+            // 
             // AppointmentViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(672, 286);
+            this.ClientSize = new System.Drawing.Size(672, 325);
+            this.Controls.Add(this.refresh_button);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.dataGridView1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -170,6 +224,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -187,6 +242,10 @@
         private System.Windows.Forms.Button remove_button;
         private System.Windows.Forms.Button modify_button;
         private System.Windows.Forms.Button add_button;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button leave_button;
+        private System.Windows.Forms.Button join_button;
+        private System.Windows.Forms.Button refresh_button;
 
     }
 }

@@ -4,6 +4,10 @@ using System.ServiceModel;
 using Microsoft.Samples.XmlRpc;
 using CalendarInterface;
 using DBEngine;
+using System.IO;
+using System.Windows.Forms;
+
+
 
 namespace CalendarClient
 {
@@ -18,40 +22,68 @@ namespace CalendarClient
 
         }
 
-        public void initClientConfig(String machineIP="", String machinePort="",String operation="",String param="")
+        public String initClientConfig(String machineIP="" ,String operation="" ,String param="")
         {
-            PORT_NUMBER = 8080;
-            pathValue = "cal";
+            PORT_NUMBER = 3030;
+            pathValue = "";
 
             dbConn = new DatabaseCon();
 
-            Uri blogAddress = new UriBuilder(Uri.UriSchemeHttp, Environment.MachineName, PORT_NUMBER, pathValue).Uri;
+            Uri blogAddress = new UriBuilder(Uri.UriSchemeHttp, machineIP, PORT_NUMBER, pathValue).Uri;
             ChannelFactory<ICalendarAPI> calendarAPIFactory = new ChannelFactory<ICalendarAPI>(new WebHttpBinding(WebHttpSecurityMode.None), new EndpointAddress(blogAddress));
             calendarAPIFactory.Endpoint.Behaviors.Add(new XmlRpcEndpointBehavior());
             calendarAPI = calendarAPIFactory.CreateChannel();
 
-            switch (operation)
+            String result = "";
+            try
             {
-                case "ADD":
-                    System.Windows.Forms.MessageBox.Show("Adding to the machine with ip" + machineIP);
-                    return;
-                    int i = calendarAPI.addAppointment(param);
-                    Console.WriteLine(i + "\n");
+                switch (operation)
+                {
+                    case "ADD":
+                        System.Windows.Forms.MessageBox.Show("Adding to the machine with ip" + machineIP);
 
-                    Console.ReadLine();
-                    break;
-                case "MODIFY":
-                    System.Windows.Forms.MessageBox.Show("Modifying to the machine with ip" + machineIP);
-                    return;
-                    calendarAPI.modifyAppointment(param);
-                    break;
+                        int i = calendarAPI.addAppointment(param);
+                        result = i.ToString();
+                        break;
+                    case "MODIFY":
+                        System.Windows.Forms.MessageBox.Show("Modifying to the machine with ip" + machineIP);
 
-                case "REMOVE":
-                    System.Windows.Forms.MessageBox.Show("REMOVING to the machine with ip" + machineIP);
-                    return;
-                    calendarAPI.removeAppointment(param);
-                    break;
+                        i = calendarAPI.modifyAppointment(param);
+                        result = i.ToString();
+                        break;
+
+                    case "REMOVE":
+                        System.Windows.Forms.MessageBox.Show("REMOVING to the machine with ip" + machineIP);
+
+                        i = calendarAPI.removeAppointment(param);
+                        result = i.ToString();
+                        break;
+                    case "REGISTER_ON_NW":
+                        result = calendarAPI.registerOnNW(param);
+                        break;
+
+                    case "LEAVE_NETWORK":
+                        i = calendarAPI.removeIPFromDB(param);
+                        result = i.ToString();
+                        break;
+                    case "SYNC_DB":
+                        result = calendarAPI.syncDatabase(param);
+                        break;
+
+
+                    case "INSERT_IP_TO_DB":
+                        i = calendarAPI.insertNewIPInDB(param);
+                        result = i.ToString();
+                        break;
+                }
+                
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error in connecting to the server \n" + ex.Message);
+                //throw ex;
+            }
+            return result;
         }
 
   
