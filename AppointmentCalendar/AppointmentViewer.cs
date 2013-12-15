@@ -13,6 +13,7 @@ using System.Threading;
 using CalendarEngine;
 using DBEngine;
 using Utils;
+using CalendarInterface;
 
 
 
@@ -24,14 +25,17 @@ namespace AppointmentCalendar
         private DatabaseCon dbConn;
         private static Server serverObject;
         private System.Windows.Forms.Timer timer;
+        private CalendarInterface.CalendarAPI calObject;
 
         public AppointmentViewer()
         {
             InitializeComponent();
 
+            CalendarInterface.CalendarAPI.PropertyChange += new CalendarInterface.CalendarAPI.PropertyChangeHandler(onUpdatedDBEvent);
+
             dbConn = CUtils.getDBConn();  // new DatabaseCon();
             initializeDBConnections();
-         
+            CUtils.readRootMachine();
             clientObject = new Client();
             serverObject = new Server();
             initServerThread();
@@ -40,6 +44,14 @@ namespace AppointmentCalendar
             populateGrid();
 
         }
+
+
+
+        public void onUpdatedDBEvent(object sender, PropertyChangeEventArgs e)
+        {
+            populateGrid();
+        }
+
 
         private void initializeDBConnections() {
             
@@ -58,17 +70,9 @@ namespace AppointmentCalendar
         }
 
 
-        private  void populateGrid() {
+        public void populateGrid() {
 
-          /* String str = dbConn.getDataSet("select * from calendar");
-           if (str == "")
-           {
-               MessageBox.Show("Empty Data");
-           }
-            CUtils.parseStringAddtoDB(str, "ADD");
-            MessageBox.Show(str);
-            return;
-         */
+  
             dataGridView1.Rows.Clear();
 
 
@@ -145,8 +149,9 @@ namespace AppointmentCalendar
                 String endtime = dataGridView1[2, Row].Value.ToString();
                 String header = dataGridView1[3, Row].Value.ToString();
                 String comments = dataGridView1[4, Row].Value.ToString();
+                String author = dataGridView1[5, Row].Value.ToString();
 
-                String sql = "DELETE FROM calendar WHERE aptdate='" + date + "' AND starttime ='" + starttime + "' AND endtime ='" + endtime + "' AND aptheader='" + header + "' AND aptcomment = '" + comments + "' AND author ='"+ Environment.MachineName+ "'";
+                String sql = "DELETE FROM calendar WHERE aptdate='" + date + "' AND starttime ='" + starttime + "' AND endtime ='" + endtime + "' AND aptheader='" + header + "' AND aptcomment = '" + comments + "' AND author ='" + author + "' ";
                 dbConn.queryDB(sql);
 
                 String getIpAndPort = "select * from user";
@@ -167,13 +172,13 @@ namespace AppointmentCalendar
                     }
 
                 }
-                
+
+                populateGrid();
 
                 MessageBox.Show(CUtils.removeRowMessage,"Important Message", MessageBoxButtons.OK,
                                MessageBoxIcon.Exclamation,
                                MessageBoxDefaultButton.Button1);
-                populateGrid();
-                //Call other servers through XML-RPC call
+                
             }
         }
 
@@ -243,50 +248,54 @@ namespace AppointmentCalendar
                 if (!ip.Equals("") && !ip.Equals(Environment.MachineName))
                 {
                     clientObject.initClientConfig(ip, "LEAVE_NETWORK", Environment.MachineName);
-                    CUtils.delay(10000);
+                    CUtils.delay(CUtils.TwoSeconds);
                 }
             }
 
 
-            for (int i = 0; i < 10000; i++) { }
+            CUtils.delay(CUtils.TwoSeconds);
 
             String path = Path.GetDirectoryName(Application.ExecutablePath) + "\\appointments.db";
             if (File.Exists(path))
             {
                 File.Delete(path);
             }
-            MessageBox.Show("Successfully left the Calendar Network");
+            MessageBox.Show("Successfully left the Calendar Network!!");
             this.Close();
         }
 
         private void join_button_Click(object sender, EventArgs e)
         {
+
+            clientObject.initClientConfig(Environment.MachineName, CUtils.REMOVE_APPOINTMENTS, "");
+            return;
+
+
             String machineNames = clientObject.initClientConfig(CUtils.rootMachine, "REGISTER_ON_NW","");
             CUtils.parseStringAddtoDB(machineNames, "REGISTER_ON_NW");
-            
-            for (int i = 0; i < 5000; i++) { }
 
-            String db = clientObject.initClientConfig("BAGEND", "SYNC_DB", "");
+            CUtils.delay(CUtils.TwoSeconds);
+
+            String db = clientObject.initClientConfig(CUtils.rootMachine, "SYNC_DB", "");
             CUtils.parseStringAddtoDB(db,"SYNC_DB");
 
 
             //Send my ip to all the machines now
-             String getIpAndPort = "select * from user";
+            String getIpAndPort = "select * from user";
 
             String listOfIPs = dbConn.getDataSet(getIpAndPort);
             String[] hosts = CUtils.parse(listOfIPs);
 
 
-            //Now create channel factory and call others
+            
             //Fetch the IP from, loop through it and conn
-
             foreach (String ip in hosts)
             {
                 if (!ip.Equals("") && !ip.Equals(Environment.MachineName))
                 {
 
                     clientObject.initClientConfig(ip, "INSERT_IP_TO_DB", Environment.MachineName);
-                    CUtils.delay(10000);
+                    CUtils.delay(CUtils.TwoSeconds);
                 }
             }
         }
@@ -297,12 +306,11 @@ namespace AppointmentCalendar
         }
 
 
-        
         public void InitTimer()
         {
             timer = new System.Windows.Forms.Timer();
             timer.Tick += new EventHandler(timer1_Tick);
-            timer.Interval = 10000; // in miliseconds
+            timer.Interval = CUtils.TenSeconds; 
             timer.Start();
         }
 
@@ -311,6 +319,12 @@ namespace AppointmentCalendar
             populateGrid();
         }
 
+        public void updateForm() {
+
+
+            
+            return;
+        }
      
   
     }

@@ -12,7 +12,7 @@ using CalendarClient;
 
 namespace AppointmentCalendar
 {
-    public partial class ModifyAppointment : Form
+    public partial class ModifyAppointment : Form 
     {
         private String author;
         private String primaryKey;
@@ -79,7 +79,7 @@ namespace AppointmentCalendar
                 if (!ip.Equals("") && !ip.Equals(Environment.MachineName))
                 {
                     clientObject.initClientConfig(ip, "MODIFY", updateAppointmentSql);
-                    CUtils.delay(10000);
+                    CUtils.delay(2000);
                 }
             }
                 

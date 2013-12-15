@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DBEngine  ;
+using System.IO;
+using System.Windows.Forms;
 
 namespace Utils
 {
@@ -19,11 +21,26 @@ namespace Utils
 
         public const String createIPTableQuery = @"CREATE TABLE IF NOT EXISTS user (ipAddr varchar(16) primary key );";
 
-        public const String rootMachine = "ANKUR-PC";
+        public static String rootMachine = "";
+
+        public const int TwoSeconds = 2000;
+        public const int FiveSeconds = 5000;
+        public const int TenSeconds = 10000;
+
+
+
+        public const String ADD_APPOINTMENTS = "ADD";
+        public const String MODIFY_APPOINTMENTS = "MODIFY";
+        public const String REMOVE_APPOINTMENTS = "REMOVE";
+        public const String REGISTER_ON_NETWORK = "REGISTER_ON_NW";
+        public const String LEAVE_NETWORK = "LEAVE_NETWORK";
+        public const String SYNCHRONIZE_DATABASE = "SYNC_DB";
+        public const String SEND_IP_TO_MACHINES = "INSERT_IP_TO_DB";
+
 
         public static void delay(int millisec){
-        
-        for(int i =0 ;i < 10000;i++){}
+
+            for (int i = 0; i < millisec ; i++) { }
         }
 
         private static DatabaseCon dbConn;
@@ -40,6 +57,14 @@ namespace Utils
             String []inputs = str.Split(';');
             return inputs;
         }
+
+        public static void readRootMachine() {
+
+            String path = Path.GetDirectoryName(Application.ExecutablePath) + "\\root.txt";
+            rootMachine = System.IO.File.ReadAllText(path);
+            return;
+        }
+
 
 
         public static void parseStringAddtoDB(String sql,String choice) {

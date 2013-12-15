@@ -15,7 +15,7 @@ using DBEngine;
 namespace CalendarInterface
 {
     [ServiceContract]
-    public interface ICalendarAPI {
+    public interface ICalendarAPI { 
 
         [OperationContract(Action = "ICalendarAPI.addAppointment")]
         int addAppointment(String sql);
@@ -51,12 +51,16 @@ namespace CalendarInterface
     public class CalendarAPI : ICalendarAPI{
 
         private DatabaseCon dbConn;
-        private int DELAYED_UPDATE ;
-        System.Threading.Timer timer;
-    
+
+        // Delegate
+        public delegate void PropertyChangeHandler(object sender, PropertyChangeEventArgs data);
+        
+        // The event
+        public static event PropertyChangeHandler PropertyChange;
+
+
         public CalendarAPI()
 		{
-            DELAYED_UPDATE = 4000;
             initConnections();
        	}
 
@@ -66,11 +70,35 @@ namespace CalendarInterface
         }
 
 
+        private void generateEvent() {
+
+            try
+            {
+                // Check for null, in case no other forms have registered with this event.
+               // PropertyChangeEventArgs e = new PropertyChangeEventArgs();
+                if (PropertyChange != null)
+                {
+                    // Call the Event
+                    PropertyChange(this, new PropertyChangeEventArgs());
+                }
+
+            }
+            catch (Exception exception)
+            {
+                System.Windows.Forms.MessageBox.Show(exception.Message);
+            }
+        
+        
+        
+        
+        }
+
         int ICalendarAPI.addAppointment(String param)
         {
+
         //    System.Windows.Forms.MessageBox.Show("addAppointment param : " + param);
             int result = dbConn.queryDB(param);
-           
+            generateEvent();
             return result;
            
         }
@@ -78,16 +106,20 @@ namespace CalendarInterface
 
         int ICalendarAPI.removeAppointment(String param) {
 
-          //  System.Windows.Forms.MessageBox.Show("removeAppointment param : " + param);
+         //   System.Windows.Forms.MessageBox.Show("removeAppointment param : " + param);
+
             int i = dbConn.queryDB(param);
+            generateEvent();
             return i;
         }
 
+        
 
         int ICalendarAPI.modifyAppointment(String param) {
 
           //  System.Windows.Forms.MessageBox.Show("modifyAppointment param :  " + param);
             int i = dbConn.queryDB(param);
+            generateEvent();
             return i; 
         }
 
@@ -141,6 +173,17 @@ namespace CalendarInterface
 
             return ret;
         }
+
+
     }
+
+    public class PropertyChangeEventArgs : EventArgs
+    {
+        public PropertyChangeEventArgs()
+        {
+        }
+    }
+
+   
 }
 

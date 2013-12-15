@@ -6,6 +6,7 @@ using CalendarInterface;
 using DBEngine;
 using System.IO;
 using System.Windows.Forms;
+using Utils;
 
 
 
@@ -24,7 +25,7 @@ namespace CalendarClient
 
         public String initClientConfig(String machineIP="" ,String operation="" ,String param="")
         {
-            PORT_NUMBER = 3030;
+            PORT_NUMBER = 8080;
             pathValue = "";
 
             dbConn = new DatabaseCon();
@@ -39,39 +40,40 @@ namespace CalendarClient
             {
                 switch (operation)
                 {
-                    case "ADD":
-                        System.Windows.Forms.MessageBox.Show("Adding to the machine with ip" + machineIP);
+                    case CUtils.ADD_APPOINTMENTS:
+                        System.Windows.Forms.MessageBox.Show("Adding to the machine with ip : " + machineIP);
 
                         int i = calendarAPI.addAppointment(param);
                         result = i.ToString();
                         break;
-                    case "MODIFY":
-                        System.Windows.Forms.MessageBox.Show("Modifying to the machine with ip" + machineIP);
+
+                    case CUtils.MODIFY_APPOINTMENTS:
+                        System.Windows.Forms.MessageBox.Show("Modifying to the machine with ip : " + machineIP);
 
                         i = calendarAPI.modifyAppointment(param);
                         result = i.ToString();
                         break;
 
-                    case "REMOVE":
+                    case CUtils.REMOVE_APPOINTMENTS:
                         System.Windows.Forms.MessageBox.Show("REMOVING to the machine with ip" + machineIP);
 
                         i = calendarAPI.removeAppointment(param);
                         result = i.ToString();
                         break;
-                    case "REGISTER_ON_NW":
+                    case CUtils.REGISTER_ON_NETWORK:
                         result = calendarAPI.registerOnNW(param);
                         break;
 
-                    case "LEAVE_NETWORK":
+                    case CUtils.LEAVE_NETWORK:
                         i = calendarAPI.removeIPFromDB(param);
                         result = i.ToString();
                         break;
-                    case "SYNC_DB":
+                    case CUtils.SYNCHRONIZE_DATABASE:
                         result = calendarAPI.syncDatabase(param);
                         break;
 
 
-                    case "INSERT_IP_TO_DB":
+                    case CUtils.SEND_IP_TO_MACHINES:
                         i = calendarAPI.insertNewIPInDB(param);
                         result = i.ToString();
                         break;
